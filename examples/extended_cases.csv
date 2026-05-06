@@ -1,0 +1,7 @@
+name,demand,capacity,latency,risk,weight,score,decision,reason
+baseline,63,89,20,12,6,137,review,parsers baseline scenario exercises the review path for bounded failure handling
+pressure,77,73,24,18,8,123,review,parsers pressure scenario exercises the review path for bounded failure handling
+surge,102,97,23,17,11,219,accept,parsers surge scenario keeps the local fixture within the modeled acceptance band
+degraded,63,55,34,25,8,19,review,parsers degraded scenario exercises the review path for bounded failure handling
+recovery,90,103,19,11,11,237,accept,parsers recovery scenario keeps the local fixture within the modeled acceptance band
+boundary,78,78,25,16,8,135,review,parsers boundary scenario exercises the review path for bounded failure handling
