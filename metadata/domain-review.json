@@ -1,0 +1,73 @@
+{
+  "repo": "silver-parse-regex-stack",
+  "language": "Ruby",
+  "category": "Parsers",
+  "goal": "Implement a Ruby parsers project for regex simulation kernel, using seeded input scenarios and deterministic summary checks.",
+  "review_model": {
+    "terms": [
+      "token drift",
+      "grammar width",
+      "label quality",
+      "error locality"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "token drift",
+      "signal": 73,
+      "slack": 42,
+      "drag": 27,
+      "confidence": 57,
+      "score": 164,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "grammar width",
+      "signal": 72,
+      "slack": 21,
+      "drag": 8,
+      "confidence": 60,
+      "score": 201,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "label quality",
+      "signal": 70,
+      "slack": 50,
+      "drag": 24,
+      "confidence": 86,
+      "score": 204,
+      "lane": "ship"
+    },
+    {
+      "name": "recovery",
+      "focus": "error locality",
+      "signal": 67,
+      "slack": 21,
+      "drag": 24,
+      "confidence": 80,
+      "score": 163,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "token drift",
+      "signal": 59,
+      "slack": 39,
+      "drag": 30,
+      "confidence": 78,
+      "score": 145,
+      "lane": "ship"
+    }
+  ]
+}

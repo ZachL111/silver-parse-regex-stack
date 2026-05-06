@@ -1,68 +1,40 @@
 # silver-parse-regex-stack
 
-`silver-parse-regex-stack` explores parsers in Ruby. The repository keeps the core rule set compact, then surrounds it with examples that show how the decisions move.
+`silver-parse-regex-stack` explores parsers with a small Ruby codebase and local fixtures. The technical goal is to implement a Ruby parsers project for regex simulation kernel, using seeded input scenarios and deterministic summary checks.
 
-## Silver Parse Regex Stack Notes
+## Reason For The Project
 
-The quickest review path is the verifier first, then the fixtures, then the operations note. That order makes it easy to see whether the code, data, and explanation still agree.
+This is intentionally local and self-contained so it can be inspected without credentials, services, or seeded history.
 
-## Implementation Notes
+## Silver Parse Regex Stack Review Notes
 
-The core is a scoring model over demand, capacity, latency, risk, and weight. That keeps token shape, error labels, and grammar boundaries in one explicit decision path. The threshold is 159, with risk penalty 4, latency penalty 3, and weight bonus 5. The Ruby code keeps the module small and leans on Minitest for direct fixture checks.
+For a quick review, compare `label quality` with `token drift` before reading the middle cases.
 
-## Why This Exists
+## What It Does
 
-I use this kind of project to make a rule visible before adding more machinery around it. The important part here is not the size of the codebase. It is that the input signals, scoring rule, fixture data, and expected output can all be checked in one sitting.
+- `fixtures/domain_review.csv` adds cases for token drift and grammar width.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/silver-parse-regex-walkthrough.md` walks through the case spread.
+- The Ruby code includes a review path for `label quality` and `token drift`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Feature Notes
+## How It Is Put Together
 
-- Uses fixture data to keep error labels changes visible in code review.
-- Includes extended examples for grammar boundaries, including `recovery` and `degraded`.
-- Documents golden examples tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
+The core code exposes a scoring path and the added review layer uses `signal`, `slack`, `drag`, and `confidence`. The domain terms are `token drift`, `grammar width`, `label quality`, and `error locality`.
 
-## Example Scenarios
+The Ruby implementation avoids hidden state so fixture changes are easy to reason about.
 
-The examples are meant to be readable before they are exhaustive. They cover enough variation to show how latency and risk can pull a decision below the threshold.
-
-## Code Tour
-
-- `lib`: library code
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Local Setup
-
-Clone the repository, enter the directory, and run the verifier. No database server, cloud account, or token is required.
-
-## Try It
+## Run It
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Check It
 
-## Tests
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
-
-The audit command checks repository structure and README constraints before it delegates to the verifier.
+The verifier is intentionally local. It should fail if the fixture score math, lane assignment, or language-specific test drifts.
 
 ## Boundaries
 
-This code is local-first. It makes no claim about deployed usage and avoids credentials, hosted state, and environment-specific setup.
-
-## Roadmap
-
-- Add a comparison mode that shows how decisions change when one signal is adjusted.
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add one more parsers fixture that focuses on a malformed or borderline input.
+No external service is required. A deeper version would add more negative cases and a clearer boundary around invalid input.
